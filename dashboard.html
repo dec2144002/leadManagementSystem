@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snippet - BBBootstrap</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+          function isNotEmpty(str) {
+            return (!str || str.length === 0 );
+          }
+          function removeThis(id) {
+            $(id).remove();
+            updateTodaysTaskCount();
+            updateUpcommingTaskCount();
+          }
+
+          function updateTodaysTaskCount() {
+            console.log($(".todaysList").length);
+            $('#todaysTaskCount').text($(".todaysList").length);
+          }
+
+          function updateUpcommingTaskCount() {
+            console.log($(".upcommingList").length);
+            $('#upcommingTaskCount').text($(".upcommingList").length);
+          }
+          $( document ).ready(function() {
+              $("#addTodaysTask").on("click", function() {
+                let todaysTaskInput = $('#todaysTaskInput').val();
+                console.log(todaysTaskInput);
+                if(isNotEmpty(todaysTaskInput)) {
+                  alert("Empty task cannot be added.");
+                  return;
+                }
+                let uniqueId = 'id' + (new Date()).getTime();
+            
+                $("#todaysTask").append('<div id="'+ uniqueId +'" class="alert alert-success alert-dismissible fade show todaysList" role="alert">'+
+                    todaysTaskInput+
+                    '<button type="button" class="close" data-dismiss="alert" onClick="removeThis('+ uniqueId +');" aria-label="Close">' +
+                      '<span aria-hidden="true">&times;</span>' +
+                    '</button>'+
+                    '</div>'
+                );
+                updateTodaysTaskCount();
+              })
+
+              $("#addUpcommingTask").on("click", function() {
+                let todaysTaskInput = $('#upcommingTaskInput').val();
+                console.log(todaysTaskInput);
+                if(isNotEmpty(todaysTaskInput)) {
+                  alert("Empty task cannot be added.");
+                  return;
+                }
+                let uniqueId = 'id' + (new Date()).getTime();
+            
+                $("#upcommingTask").append('<div id="'+ uniqueId +'" class="alert alert-primary alert-dismissible fade show upcommingList" role="alert">'+
+                    todaysTaskInput+
+                    '<button type="button" class="close" data-dismiss="alert" onClick="removeThis('+ uniqueId +');" aria-label="Close">' +
+                      '<span aria-hidden="true">&times;</span>' +
+                    '</button>'+
+                    '</div>'
+                );
+                updateUpcommingTaskCount();
+              })
+        });
+    </script>
+    <style>
+      body {
+        background-color: #eee;
+      }
+
+      .card {
+        border: none;
+        border-radius: 10px;
+      }
+
+      .c-details span {
+        font-weight: 300;
+        font-size: 13px;
+      }
+
+      .icon {
+        width: 50px;
+        height: 50px;
+        background-color: #eee;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 39px;
+      }
+
+      .badge span {
+        background-color: #fffbec;
+        width: 60px;
+        height: 25px;
+        padding-bottom: 3px;
+        border-radius: 5px;
+        display: flex;
+        color: #920303;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .alert div {
+        background-color: #fffbec;
+        width: 60px;
+        height: 25px;
+        padding-bottom: 3px;
+        border-radius: 5px;
+        display: flex;
+        color: #079203;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .progress {
+        height: 10px;
+        border-radius: 10px;
+      }
+
+      .progress div {
+        background-color: red;
+      }
+
+      .text1 {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .text2 {
+        color: #a5aec0;
+      }
+    </style>
+  </head>
+  <body oncontextmenu="return false" class="snippet-body">
+    <nav class="navbar navbar-expand-sm   navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sales Dashboard</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <div class="container mt-5 mb-3">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card p-3 mb-2">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <div class="ms-2 c-details">
+                  <h3 class="mb-0">Today</h3>
+                  <hr />
+                </div>
+              </div>
+              <div class="badge"><span id="todaysTaskCount">0</span></div>
+            </div>
+            <div class="container">
+              <input id="todaysTaskInput" class="form-control form-control-lg " type="text" placeholder="Whats on your mind ?">
+              <button type="button" id="addTodaysTask" class="btn btn-primary btn-lg btn-block mt-2">Add Task</button>
+            </div>
+            <hr />
+            <div id="todaysTask" class="card">
+            </div>
+            <!-- <div class="mt-5">
+              <div class="mt-5">
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 50%"
+                    aria-valuenow="50"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div class="mt-3">
+                  <span class="text1"
+                    >3 <span class="text2">of 5 completed</span></span
+                  >
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-3 mb-2">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <div class="ms-2 c-details">
+                  <h3 class="mb-0">Upcomming</h3>
+                  <hr />
+                </div>
+              </div>
+              <div class="badge"><span id="upcommingTaskCount">0</span></div>
+            </div>
+            <div class="container">
+              <input id="upcommingTaskInput" class="form-control form-control-lg " type="text" placeholder="Whats on your mind ?">
+              <button type="button" id="addUpcommingTask" class="btn btn-primary btn-lg btn-block mt-2">Add Task</button>
+            </div>
+            <hr />
+            <div class="card" id="upcommingTask">
+            </div>
+            <!-- <div class="mt-5">
+              <div class="mt-5">
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 0%"
+                    aria-valuenow="0"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div class="mt-3">
+                  <span class="text1"
+                    >0 <span class="text2">of 4 completed</span></span
+                  >
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-3 mb-2">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex flex-row align-items-center">
+                <div class="ms-2 c-details">
+                  <h3 class="mb-0">New Lead</h3>
+                  <hr />
+                </div>
+              </div>
+            </div>
+            <div class="card">
+                <div class="alert alert-secondary" role="alert">
+                  Deeksha - 7894376887
+                </div>
+            </div>
+            <!-- <div class="mt-5">
+              <div class="mt-5">
+                <div class="progress">
+                  <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: 50%"
+                    aria-valuenow="50"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div class="mt-3">
+                  <span class="text1"
+                    >52 Applied <span class="text2">of 100 capacity</span></span
+                  >
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <script type="text/javascript"></script>
+  </body>
+</html>
